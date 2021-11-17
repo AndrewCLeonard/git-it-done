@@ -6,7 +6,7 @@ var getUserRepos = function (user) {
 	fetch(apiUrl).then(function (response) {
 		// adding response.json formats the data in the response so it's usable
 		response.json().then(function (data) {
-			console.log("inside", response);
+			console.log(data);
 		});
 	});
 };
@@ -16,4 +16,4 @@ console.log("outside");
 var response = fetch("https://api.github.com/users/octocat/repos");
 console.log(response);
 
-getUserRepos("microsoft");
+getUserRepos("facebook");
