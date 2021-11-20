@@ -1,5 +1,6 @@
 var issueContainerEl = document.querySelector("#issues-container");
 var limitWarningEl = document.querySelector("#limit-warning");
+var repoNameEl = document.querySelector("#repo-name");
 
 var getRepoIssues = function (repo) {
 	console.log(repo);
@@ -23,17 +24,28 @@ var getRepoIssues = function (repo) {
 		}
 	});
 };
-// documentation had colons in front of the username and repo. Why?
-getRepoIssues("vue/vue");
+
+function getRepoName() {
+	var queryString = document.location.search;
+	var repoName = queryString.split("=")[1]
+	getRepoIssues(repoName);
+	repoNameEl.textContent = repoName;
+	console.log(repoName);
+}
+
+// GitHub documentation for getting repo had colons in front of the username and repo. Why?
+// - NEED LINK
 
 // ??? Why do they declare functions in this manner?
 // ??? What do the different colors signify?
+// - white = 
 // - red = logic operators
 // - blue = declarations of variables & functions
 // - yellow = strings
 // - orange = parameter
 // - dark orange if parameter not used in function
 // - green = attributes
+// - purple = arrays
 // ??? Creating locally scoped *El variables.
 // - Is that something Cory was creating at the top in his "selector" section?
 // - Pros/cons to this approach?
@@ -85,3 +97,5 @@ var displayWarning = function (repo) {
 	// append warning to container
 	limitWarningEl.appendChild(linkEl);
 };
+
+getRepoName()
