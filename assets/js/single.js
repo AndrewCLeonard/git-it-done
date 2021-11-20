@@ -7,7 +7,7 @@ var getRepoIssues = function (repo) {
 	var apiUrl = "https://api.github.com/repos/" + repo + "/issues?direction=asc";
 	// ??? what does the following line mean?
 	// ??? Where does `response.json` come from? Where is documentation?
-	//
+	// make a get request to url
 	fetch(apiUrl).then(function (response) {
 		// request was successful
 		if (response.ok) {
@@ -20,17 +20,26 @@ var getRepoIssues = function (repo) {
 				}
 			});
 		} else {
+			document.location.replace("./index.html");
 			alert("There was a problem with your request!");
 		}
 	});
 };
 
 function getRepoName() {
+	// grab repo name from url string query
 	var queryString = document.location.search;
-	var repoName = queryString.split("=")[1]
-	getRepoIssues(repoName);
-	repoNameEl.textContent = repoName;
-	console.log(repoName);
+	var repoName = queryString.split("=")[1];
+
+	if (repoName) {
+		// display repo name on the page
+		repoNameEl.textContent = repoName;
+
+		getRepoIssues(repoName);
+	} else {
+		// if no repo was ginev, rediret to the homepage
+		document.location.replace("./index.html");
+	}
 }
 
 // GitHub documentation for getting repo had colons in front of the username and repo. Why?
@@ -38,7 +47,7 @@ function getRepoName() {
 
 // ??? Why do they declare functions in this manner?
 // ??? What do the different colors signify?
-// - white = 
+// - white =
 // - red = logic operators
 // - blue = declarations of variables & functions
 // - yellow = strings
@@ -98,4 +107,4 @@ var displayWarning = function (repo) {
 	limitWarningEl.appendChild(linkEl);
 };
 
-getRepoName()
+getRepoName();
