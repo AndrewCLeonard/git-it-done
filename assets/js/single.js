@@ -11,6 +11,7 @@ var getRepoIssues = function (repo) {
 	fetch(apiUrl).then(function (response) {
 		// request was successful
 		if (response.ok) {
+			// convert it to json, then pass ```data``` to ```displayIssues```
 			response.json().then(function (data) {
 				displayIssues(data);
 
@@ -46,15 +47,16 @@ function getRepoName() {
 // - NEED LINK
 
 // ??? Why do they declare functions in this manner?
+	// - showing the 
 // ??? What do the different colors signify?
-// - white =
-// - red = logic operators
-// - blue = declarations of variables & functions
-// - yellow = strings
-// - orange = parameter
-// - dark orange if parameter not used in function
-// - green = attributes
-// - purple = arrays
+	// - white =
+	// - red = logic operators
+	// - blue = declarations of variables & functions
+	// - yellow = strings
+	// - orange = for starters- a function parameter, but could be an array or a string
+	// - dark orange = if parameter not used in function
+	// - green = attributes
+	// - purple = arrays
 // ??? Creating locally scoped *El variables.
 // - Is that something Cory was creating at the top in his "selector" section?
 // - Pros/cons to this approach?
@@ -70,6 +72,7 @@ var displayIssues = function (issues) {
 		issueEl.classList = "list-item flex-row justify-space-between align-center";
 		issueEl.setAttribute("href", issues[i].html_url);
 		issueEl.setAttribute("target", "_blank");
+		console.log(issues[i].html_url);
 
 		// create span to hold issue title
 		var titleEl = document.createElement("span");
@@ -78,7 +81,7 @@ var displayIssues = function (issues) {
 		// append to container
 		issueEl.appendChild(titleEl);
 
-		// create a type element
+		// create a type element (issue or pull request)
 		var typeEl = document.createElement("span");
 
 		// check if issue is an actual issue or a pull request
@@ -90,6 +93,7 @@ var displayIssues = function (issues) {
 
 		// append to container
 		issueEl.appendChild(typeEl);
+		
 		// append to the dom
 		issueContainerEl.appendChild(issueEl);
 	}

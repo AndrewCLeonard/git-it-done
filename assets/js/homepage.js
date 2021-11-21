@@ -95,5 +95,26 @@ var displayRepos = function (repos, searchTerm) {
 	}
 };
 
+var getFeaturedRepos = function (language) {
+	var apiUrl = "https://api.github.com/search/repositories?q=" + language + "+is:featured&sort=help-wanted-issues";
+	fetch(apiUrl)
+		.then(function (response) {
+		// request was successful
+		if (response.ok) {
+			response.json().then(function (data) {
+				// ??? Would be helpful to go over this again with TA
+				displayRepos(data.items, language);
+			});
+		} else {
+			alert("Error: " + response.statusText);
+		}
+	});
+};
+
 // add event listeners to forms
 userFormEl.addEventListener("submit", formSubmitHandler);
+
+/* 
+TEXT FOR COPY & PASTING 
+getFeaturedRepos("javascript")
+*/
