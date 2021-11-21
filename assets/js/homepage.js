@@ -5,6 +5,7 @@ Add the following code to displayRepos():
 */
 
 var userFormEl = document.querySelector("#user-form");
+var languageButtonsEl = document.querySelector("#language-buttons");
 var nameInputEl = document.querySelector("#username");
 var repoContainerEl = document.querySelector("#repos-container");
 var repoSearchTerm = document.querySelector("#repo-search-term");
@@ -24,6 +25,18 @@ var formSubmitHandler = function (event) {
 		nameInputEl.value = "";
 	} else {
 		alert("Please enter a GitHub username");
+	}
+};
+
+var buttonClickHandler = function (event) {
+	// get the language attribute from the clicked element
+	var language = event.target.getAttribute("data-language");
+	
+	if (language) {
+		getFeaturedRepos(language);
+
+		// clear old content
+		repoContainerEl.textContent = "";
 	}
 };
 
@@ -50,6 +63,24 @@ var getUserRepos = function (user) {
 		});
 };
 
+var getFeaturedRepos = function (language) {
+	// format the github api url
+	var apiUrl = "https://api.github.com/search/repositories?q=" + language + "+is:featured&sort=help-wanted-issues";
+
+	// make a get request to url
+	fetch(apiUrl).then(function (response) {
+		// request was successful
+		if (response.ok) {
+			response.json().then(function (data) {
+				// ??? Would be helpful to go over this again with TA
+				displayRepos(data.items, language);
+			});
+		} else {
+			alert("Error: " + response.statusText);
+		}
+	});
+};
+
 var displayRepos = function (repos, searchTerm) {
 	// check if api returned any repos
 	if (repos.length === 0) {
@@ -67,7 +98,7 @@ var displayRepos = function (repos, searchTerm) {
 		// create a container for each repo
 		var repoEl = document.createElement("a");
 		repoEl.classList = "list-item flex-row justify-space-between align-center";
-		repoEl.setAttribute("href", "./single-repo.html?repo="+ repoName);
+		repoEl.setAttribute("href", "./single-repo.html?repo=" + repoName);
 
 		// create a span element to hold repository name
 		var titleEl = document.createElement("span");
@@ -95,24 +126,10 @@ var displayRepos = function (repos, searchTerm) {
 	}
 };
 
-var getFeaturedRepos = function (language) {
-	var apiUrl = "https://api.github.com/search/repositories?q=" + language + "+is:featured&sort=help-wanted-issues";
-	fetch(apiUrl)
-		.then(function (response) {
-		// request was successful
-		if (response.ok) {
-			response.json().then(function (data) {
-				// ??? Would be helpful to go over this again with TA
-				displayRepos(data.items, language);
-			});
-		} else {
-			alert("Error: " + response.statusText);
-		}
-	});
-};
-
 // add event listeners to forms
 userFormEl.addEventListener("submit", formSubmitHandler);
+// ??? Need to review listeners
+languageButtonsEl.addEventListener("click", buttonClickHandler);
 
 /* 
 TEXT FOR COPY & PASTING 

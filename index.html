@@ -23,8 +23,9 @@ https://courses.bootcampspot.com/courses/951/pages/6-dot-5-5-add-language-button
 		</header>
 
 		<main class="flex-row justify-space-between">
-			<!-- Search Form -->
+			<!-- Search Form Start -->
 			<div class="col-12 col-md-4">
+				<!-- Card Start -->
 				<div class="card">
 					<h3 class="card-header text-uppercase">Search By User</h3>
 					<form id="user-form" class="card-body">
@@ -33,8 +34,19 @@ https://courses.bootcampspot.com/courses/951/pages/6-dot-5-5-add-language-button
 						<button type="submit" class="btn">Get User</button>
 					</form>
 				</div>
+				<!-- Card End -->
+				<!-- Topic Button Start -->
+				<div class="card">
+					<h3 class="card-header text-uppercase">search by topic</h3>
+					<div id="language-buttons" class="card-body">
+						<button class="btn" data-language="javascript">JavaScript</button>
+						<button class="btn" data-language="HTML">HTML</button>
+						<button class="btn" data-language="CSS">CSS</button>
+					</div>
+				</div>
+				<!-- Topic Button End -->
 			</div>
-
+			<!-- Search Form End -->
 			<div class="col-12 col-md-8">
 				<h2 class="subtitle">Showing Repositories for: <span id="repo-search-term"></span></h2>
 				<div id="repos-container" class="list-group"></div>
