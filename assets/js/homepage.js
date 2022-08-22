@@ -13,7 +13,6 @@ https://courses.bootcampspot.com/courses/951/pages/6-dot-2-5-display-response-da
 Add the following code to displayRepos():
 */
 
-	console.log("on?");
 	var userFormEl = document.querySelector("#user-form");
 	var languageButtonsEl = document.querySelector("#language-buttons");
 	var nameInputEl = document.querySelector("#username");
@@ -23,6 +22,7 @@ Add the following code to displayRepos():
 	var formSubmitHandler = function (event) {
 		// prevent page from refreshing
 		event.preventDefault();
+		console.log("on?");
 
 		// get value from input element
 		var username = nameInputEl.value.trim();
@@ -32,7 +32,7 @@ Add the following code to displayRepos():
 
 			// clear old content
 			repoContainerEl.textContent = "";
-			nameInputEl.value = "";
+			// nameInputEl.value = "";
 		} else {
 			alert("Please enter a GitHub username");
 		}
